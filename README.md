@@ -1,2 +1,1 @@
-# aas-blueprint
-aas-blueprint
+# aas-bluePrint
