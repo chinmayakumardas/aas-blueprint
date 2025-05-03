@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Cookies from 'js-cookie';
 
-const authMiddleware = () => {
+const AuthMiddleware = () => {
   const router = useRouter();
 
   useEffect(() => {
@@ -18,4 +18,4 @@ const authMiddleware = () => {
   }, [router]);
 };
 
-export default authMiddleware;
+export default AuthMiddleware;
