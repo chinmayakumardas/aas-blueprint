@@ -43,24 +43,24 @@ const ProjectsPage = () => {
   );
 
   return (
-    <div className="min-h-screen bg-gray-50 p-4 sm:p-6 lg:p-8">
-      <div className="max-w-7xl mx-auto">
+    <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-black p-4 sm:p-6 lg:p-8">
+      <div className="max-w-7xl mx-auto space-y-8">
         {/* Header Section */}
         <div className="flex flex-col sm:flex-row justify-between items-center mb-6">
-          <h1 className="text-2xl sm:text-3xl font-bold text-gray-800">Projects Dashboard</h1>
+          <h1 className="text-3xl sm:text-4xl font-bold text-white tracking-tight">Projects Dashboard</h1>
           <div className="flex items-center space-x-4 mt-4 sm:mt-0">
             <div className="relative">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
               <input
                 type="text"
                 placeholder="Search projects..."
-                className="pl-10 pr-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full sm:w-64"
+                className="pl-10 pr-4 py-2 rounded-lg border border-gray-600 bg-gray-800 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500 w-full sm:w-64 transition-all duration-300"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
             </div>
-            <Link href="/projects/create">
-              <button className="flex items-center bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+            <Link href="/project/createproject">
+              <button className="flex items-center bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition-all duration-300 transform hover:scale-105 shadow-lg">
                 <Plus className="h-5 w-5 mr-2" />
                 Create Project
               </button>
@@ -69,26 +69,26 @@ const ProjectsPage = () => {
         </div>
 
         {/* Projects Table */}
-        <div className="bg-white shadow-lg rounded-lg overflow-hidden">
+        <div className="bg-gray-800 shadow-2xl rounded-lg overflow-hidden border border-gray-700">
           <div className="overflow-x-auto">
-            <table className="min-w-full divide-y divide-gray-200">
-              <thead className="bg-gray-50">
+            <table className="min-w-full divide-y divide-gray-700">
+              <thead className="bg-gray-900">
                 <tr>
                   {['name', 'status', 'createdAt', 'team', 'progress', 'actions'].map((key) => (
                     <th
                       key={key}
-                      className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer"
+                      className="px-6 py-4 text-left text-xs font-medium text-gray-300 uppercase tracking-wider cursor-pointer hover:text-green-400 transition-colors duration-200"
                       onClick={() => key !== 'actions' && handleSort(key)}
                     >
                       <div className="flex items-center space-x-1">
                         <span>{key.charAt(0).toUpperCase() + key.slice(1)}</span>
                         {key !== 'actions' && (
                           <FaSort
-                            className={`h-3 w-3 ${
+                            className={`h-3 w-3 transition-transform duration-200 ${
                               sortConfig.key === key
                                 ? sortConfig.direction === 'asc'
-                                  ? 'text-blue-500'
-                                  : 'text-blue-500 rotate-180'
+                                  ? 'text-green-500'
+                                  : 'text-green-500 rotate-180'
                                 : 'text-gray-400'
                             }`}
                           />
@@ -98,52 +98,52 @@ const ProjectsPage = () => {
                   ))}
                 </tr>
               </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
+              <tbody className="bg-gray-800 divide-y divide-gray-700">
                 {filteredProjects.length > 0 ? (
                   filteredProjects.map((project) => (
-                    <tr key={project.id} className="hover:bg-gray-50 transition-colors">
-                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                    <tr key={project.id} className="hover:bg-gray-700 transition-all duration-200">
+                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-white">
                         {project.name}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <span
                           className={`px-2 py-1 text-xs font-semibold rounded-full ${
                             project.status === 'Active'
-                              ? 'bg-green-100 text-green-800'
+                              ? 'bg-green-900 text-green-200'
                               : project.status === 'In Progress'
-                              ? 'bg-yellow-100 text-yellow-800'
+                              ? 'bg-yellow-900 text-yellow-200'
                               : project.status === 'Completed'
-                              ? 'bg-blue-100 text-blue-800'
-                              : 'bg-red-100 text-red-800'
+                              ? 'bg-blue-900 text-blue-200'
+                              : 'bg-red-900 text-red-200'
                           }`}
                         >
                           {project.status}
                         </span>
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
                         {format(new Date(project.createdAt), 'MMM dd, yyyy')}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
                         {project.team}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="w-24 bg-gray-200 rounded-full h-2">
+                        <div className="w-24 bg-gray-600 rounded-full h-2">
                           <div
-                            className="bg-blue-600 h-2 rounded-full"
+                            className="bg-green-500 h-2 rounded-full transition-all duration-300"
                             style={{ width: `${project.progress}%` }}
                           />
                         </div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                        <Link href={`/projects/${project.id}`}>
-                          <Eye className="h-5 w-5 text-blue-600 hover:text-blue-800 cursor-pointer" />
+                        <Link href={`/project/${project.id}`}>
+                          <Eye className="h-5 w-5 text-green-500 hover:text-green-400 cursor-pointer transition-colors duration-200" />
                         </Link>
                       </td>
                     </tr>
                   ))
                 ) : (
                   <tr>
-                    <td colSpan="6" className="px-6 py-4 text-center text-sm text-gray-500">
+                    <td colSpan="6" className="px-6 py-4 text-center text-sm text-gray-400">
                       No projects found.
                     </td>
                   </tr>
